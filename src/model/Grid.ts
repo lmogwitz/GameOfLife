@@ -21,7 +21,7 @@ export class Grid {
         return this._cells;
     }
 
-    public set cells(cells: boolean[][]) {
+    private set cells(cells: boolean[][]) {
         this._cells = structuredClone(cells);
     }
 
