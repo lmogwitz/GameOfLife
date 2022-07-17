@@ -46,12 +46,13 @@
 </header>
 
 <div *ngIf="grid$ | async as grid"
-     class="grid">
+     class="grid"
+     [ngClass]="{'autorun': isAutoRunActive}">
     <div *ngFor="let collCol of grid.cells; let y=index;"
          class="row">
         <div *ngFor="let cellState of collCol; let x=index;"
              class="col cell"
-             (click)="grid.toggleCell(x, y)"
+             (click)="handleClickToggleCell(grid, x, y)"
              [ngClass]="{'alive': cellState}">
         </div>
     </div>

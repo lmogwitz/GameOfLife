@@ -68,6 +68,14 @@ export class AppComponent implements OnInit {
         );
     }
 
+    public async handleClickToggleCell(grid: Grid, x: number, y: number): Promise<void> {
+        if (this.isAutoRunActive) {
+            return;
+        }
+
+        grid.toggleCell(x, y);
+    }
+
     private updateUiGrid(grid: Grid): void {
         this.grid = grid;
         this.grid$.next(grid);

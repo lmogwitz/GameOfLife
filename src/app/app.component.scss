@@ -96,9 +96,25 @@ footer {
             1px 1px 0 0 $grid-border-color,
             1px 0 0 0 $grid-border-color inset,
             0 1px 0 0 $grid-border-color inset;
+            background: white;
 
             &.alive {
                 background: rgba(91, 169, 64, 0.73);
+            }
+        }
+    }
+
+    &:not(.autorun) {
+        .cell {
+            &:hover {
+                cursor: pointer;
+                background: rgba(91, 169, 64, 0.73);
+            }
+
+            &.alive {
+                &:hover {
+                    background: rgba(91, 169, 64, 0.5);
+                }
             }
         }
     }
