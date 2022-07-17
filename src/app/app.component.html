@@ -9,7 +9,9 @@
                    [min]="minCols"
                    [max]="maxCols"
                    [formControl]="fg.controls.x">
-            <span matPrefix>[{{minCols}}, {{maxCols}}]</span>
+            <span matPrefix>
+                {{minCols}} &leq; x &leq; {{maxCols}}
+            </span>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Rows</mat-label>
@@ -18,7 +20,8 @@
                    [min]="minRows"
                    [max]="maxRows"
                    [formControl]="fg.controls.y">
-            <span matPrefix>[{{minRows}}, {{maxRows}}]</span>
+            <span matPrefix>
+                {{minRows}} &leq; y &leq; {{maxRows}}</span>
         </mat-form-field>
     </div>
     <div class="action">
