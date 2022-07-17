@@ -1,9 +1,12 @@
 class Cell {
     public isAlive = false;
+
+    public toggle() {
+        this.isAlive = !this.isAlive;
+    }
 }
 
 export class Grid {
-
     private readonly _cells: Cell[][];
 
     public constructor(public sizeX: number,
@@ -17,5 +20,9 @@ export class Grid {
 
     public get cells(): Cell[][] {
         return this._cells;
+    }
+
+    public toggleCell(x: number, y: number): void {
+        this._cells[y][x].toggle();
     }
 }
