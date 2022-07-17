@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {BehaviorSubject, filter, startWith} from 'rxjs';
+import {BehaviorSubject, filter, from, interval, startWith, switchMap} from 'rxjs';
 import {Grid} from '../model/Grid';
 
 const defaultX = 16;
@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
     public minRows = 3;
     public maxCols = 100;
     public maxRows = 100;
+    public isAutoRunActive = false;
     private grid = new Grid(defaultX, defaultY);
     private _fg = new FormGroup({
         x: new FormControl<number>(defaultX, [Validators.min(this.minCols), Validators.max(this.maxCols)]),
@@ -40,6 +41,13 @@ export class AppComponent implements OnInit {
                 this.grid.setDimensions(formValue.x ?? defaultX, formValue.y ?? defaultY)
             );
         });
+
+        interval(500).pipe(
+            filter(() => this.isAutoRunActive),
+            switchMap(() => {
+                return from(this.handleClickSetNextState());
+            })
+        ).subscribe();
     }
 
     public async handleClickSetNextState(): Promise<void> {

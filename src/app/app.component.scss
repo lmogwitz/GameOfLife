@@ -1,6 +1,6 @@
 $grid-border-color: #ccc;
 $header-height: 52px;
-$footer-height: header-height;
+$footer-height: $header-height;
 
 :host {
     display: flex;
@@ -10,15 +10,15 @@ $footer-height: header-height;
 }
 
 header, footer {
-    background-color: #333;
+    display: flex;
+    overflow: hidden;
 }
 
 header {
-    display: flex;
     flex: 0 0 $header-height;
     height: $header-height;
     max-height: $header-height;
-    overflow: hidden;
+    background-color: #333;
 
     .grid-setup {
         flex: 1 1 auto;
@@ -49,6 +49,7 @@ header {
     .action {
         flex: 0 0 auto;
         margin-left: auto;
+        background-color: white;
 
         button {
             height: 100%;
@@ -59,6 +60,14 @@ header {
 
 footer {
     flex: 0 0 $footer-height;
+    height: $footer-height;
+    max-height: $footer-height;
+
+    .auto-run {
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+    }
 }
 
 .grid {

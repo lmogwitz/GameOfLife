@@ -1,4 +1,5 @@
-<header *ngIf="fg as fg">
+<header *ngIf="fg as fg"
+        class="mat-elevation-z3">
     <div class="grid-setup"
          [formGroup]="fg">
         <mat-form-field appearance="fill">
@@ -23,20 +24,22 @@
     <div class="action">
         <button mat-flat-button
                 color="accent"
-                (click)="handleClickNegate()">
+                (click)="handleClickNegate()"
+                [disabled]="isAutoRunActive">
             Negate
         </button>
 
         <button mat-flat-button
                 color="warn"
-                (click)="handleClickReset()">
+                (click)="handleClickReset()"
+                [disabled]="isAutoRunActive">
             Reset
         </button>
 
         <button mat-flat-button
                 color="primary"
                 (click)="handleClickSetNextState()"
-                [disabled]="fg.invalid">
+                [disabled]="isAutoRunActive || fg.invalid">
             Next
         </button>
     </div>
@@ -54,5 +57,10 @@
     </div>
 </div>
 
-<footer>x
+<footer class="mat-elevation-z3">
+    <div class="auto-run">
+        <mat-checkbox color="primary"
+                      [(ngModel)]="isAutoRunActive">Auto Run
+        </mat-checkbox>
+    </div>
 </footer>
