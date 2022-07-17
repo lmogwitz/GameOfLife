@@ -14,12 +14,14 @@ header, footer {
 }
 
 header {
+    display: flex;
     flex: 0 0 $header-height;
     height: $header-height;
     max-height: $header-height;
     overflow: hidden;
 
     .grid-setup {
+        flex: 1 1 auto;
         display: flex;
         height: $header-height;
 
@@ -37,6 +39,16 @@ header {
                 }
             }
         }
+
+        button {
+            height: 100%;
+            border-radius: 0;
+        }
+    }
+
+    .action {
+        flex: 0 0 auto;
+        margin-left: auto;
 
         button {
             height: 100%;

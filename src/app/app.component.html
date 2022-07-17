@@ -20,6 +20,14 @@
             <span matPrefix>[{{minRows}}, {{maxRows}}]</span>
         </mat-form-field>
     </div>
+    <div class="action">
+        <button mat-flat-button
+                color="primary"
+                (click)="handleClickSetNextState()"
+                [disabled]="fg.invalid">
+            Next
+        </button>
+    </div>
 </header>
 
 <div *ngIf="grid"

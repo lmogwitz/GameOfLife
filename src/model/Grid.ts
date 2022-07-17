@@ -1,3 +1,5 @@
+type Coord = { x: number, y: number; };
+
 export class Grid {
     private readonly _cells: boolean[][];
 
@@ -29,6 +31,22 @@ export class Grid {
 
         this.setYDimension(y);
         this.setXDimension(x);
+    }
+
+    public setNext(): void {
+        const changesNeeded: Coord[] = [];
+
+        this._cells.forEach((row, y) => {
+            row.forEach((_, x) => {
+                if (this.isChangeNeeded(x, y)) {
+                    changesNeeded.push({x, y});
+                }
+            });
+        });
+
+        changesNeeded.forEach(coord => {
+            this._cells[coord.y][coord.x] = !this._cells[coord.y][coord.x];
+        });
     }
 
     private setXDimension(x: number): void {
@@ -71,5 +89,41 @@ export class Grid {
         }
 
         this.sizeY = y;
+    }
+
+    private isChangeNeeded(x: number, y: number): boolean {
+        const isAlive = this._cells[y][x];
+        const aliveNeighbors = this.getAmountOfAliveNeighbors(x, y);
+
+        if (isAlive) {
+            return aliveNeighbors < 2 || aliveNeighbors > 3;
+        } else {
+            return aliveNeighbors === 3;
+        }
+    }
+
+    private getAmountOfAliveNeighbors(x: number, y: number): number {
+        const res: boolean[] = [];
+        // clockwise starting at 12
+        res.push(
+            this.getElementValue(x, y - 1),
+            this.getElementValue(x + 1, y - 1),
+            this.getElementValue(x + 1, y),
+            this.getElementValue(x + 1, y + 1),
+            this.getElementValue(x, y + 1),
+            this.getElementValue(x - 1, y + 1),
+            this.getElementValue(x - 1, y),
+            this.getElementValue(x - 1, y - 1),
+        );
+
+        return res.filter(x => x).length;
+    }
+
+    private getElementValue(x: number, y: number): boolean {
+        const row = this._cells[y];
+
+        return row
+            ? this._cells[y][x] ?? false
+            : false;
     }
 }

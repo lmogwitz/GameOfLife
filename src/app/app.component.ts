@@ -39,4 +39,8 @@ export class AppComponent implements OnInit {
             this.grid.setDimensions(formValue.x ?? defaultX, formValue.y ?? defaultY);
         });
     }
+
+    public async handleClickSetNextState(): Promise<void> {
+        this.grid.setNext();
+    }
 }
