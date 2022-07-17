@@ -46,6 +46,10 @@ export class AppComponent implements OnInit {
         if (event.key === 'Shift') {
             this.isShiftDown = true;
         }
+
+        if (event.key === 'Escape') {
+            this.resetMultiSelect();
+        }
     }
 
     @HostListener('window:keyup', ['$event'])
@@ -102,9 +106,7 @@ export class AppComponent implements OnInit {
                 this._multiSelectStart = {x, y};
             } else {
                 grid.toggleCells(Util.getBoundingBox(this._multiSelectStart, {x, y}));
-
-                this._multiSelectStart = null;
-                this.currentCell = null;
+                this.resetMultiSelect();
             }
             return;
         }
@@ -125,7 +127,16 @@ export class AppComponent implements OnInit {
             && y <= max.y;
     }
 
+
+    private resetMultiSelect(): void {
+        this.isShiftDown = false;
+        this._multiSelectStart = null;
+        this.currentCell = null;
+    }
+
     private updateUiGrid(grid: Grid): void {
+        this.resetMultiSelect();
+
         this._grid = grid;
         this.grid$.next(grid);
     }
