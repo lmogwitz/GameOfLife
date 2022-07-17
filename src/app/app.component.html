@@ -1,0 +1,11 @@
+<div *ngIf="grid"
+     class="grid">
+    <div *ngFor="let collCol of grid.cells; let y=index;"
+         class="row">
+        <div *ngFor="let cell of collCol; let x=index;"
+             class="col cell"
+             [ngClass]="{'alive': cell.isAlive}">
+            {{cell.isAlive}}
+        </div>
+    </div>
+</div>
