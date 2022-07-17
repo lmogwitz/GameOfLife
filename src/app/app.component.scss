@@ -1,5 +1,5 @@
 $grid-border-color: #ccc;
-$header-height: 52px;
+$header-height: 50px;
 $footer-height: $header-height;
 
 :host {
@@ -28,6 +28,7 @@ header {
         mat-form-field {
             background: #fff;
             width: 125px;
+            margin-left: 10px;
 
             input {
                 text-align: right;

@@ -3,8 +3,8 @@ type Coord = { x: number, y: number; };
 export class Grid {
     private _cells!: boolean[][];
 
-    public constructor(public sizeX: number,
-                       public sizeY: number) {
+    public constructor(private sizeX: number,
+                       private sizeY: number) {
         this._cells = new Array(this.sizeY).fill(null).map((_) => {
             return Grid.createRow(this.sizeX);
         });
