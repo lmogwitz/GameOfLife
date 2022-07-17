@@ -1,28 +1,42 @@
+$grid-border-color: #ccc;
+
 :host {
-    display: block;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
 }
 
+header, footer {
+    flex: 0 0 50px;
+    background-color: #333;
+}
+
 .grid {
+    flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
 
     .row {
-        flex: 1 1 auto;
+        flex: 1 1 0;
         display: flex;
 
         .col {
-            flex: 1 1 auto;
+            flex: 1 1 0;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .cell {
-            border: 1px #000 solid;
+            // https://stackoverflow.com/a/28807765
+            box-shadow: 1px 0 0 0 $grid-border-color,
+            0 1px 0 0 $grid-border-color,
+            1px 1px 0 0 $grid-border-color,
+            1px 0 0 0 $grid-border-color inset,
+            0 1px 0 0 $grid-border-color inset;
 
             &.alive {
                 background: rgba(91, 169, 64, 0.73);

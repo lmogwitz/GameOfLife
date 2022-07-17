@@ -1,11 +1,17 @@
+<header>
+</header>
+
 <div *ngIf="grid"
      class="grid">
     <div *ngFor="let collCol of grid.cells; let y=index;"
          class="row">
-        <div *ngFor="let cell of collCol; let x=index;"
+        <div *ngFor="let cellState of collCol; let x=index;"
              class="col cell"
-             [ngClass]="{'alive': cell.isAlive}">
-            {{cell.isAlive}}
+             (click)="grid.toggleCell(x, y)"
+             [ngClass]="{'alive': cellState}">
         </div>
     </div>
 </div>
+
+<footer>
+</footer>
