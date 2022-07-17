@@ -42,9 +42,18 @@
 
             <button mat-flat-button
                     color="primary"
+                    (click)="handleClickPrevious()"
+                    [disabled]="isAutoRunActive || grid.previous === null || grid.previous.activeCellCount === 0">
+                <mat-icon>chevron_left</mat-icon>
+                Prev
+            </button>
+
+            <button mat-flat-button
+                    color="primary"
                     (click)="handleClickSetNextState()"
                     [disabled]="isAutoRunActive || fg.invalid">
                 Next
+                <mat-icon>chevron_right</mat-icon>
             </button>
         </div>
     </header>

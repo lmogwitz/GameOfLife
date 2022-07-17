@@ -3,6 +3,7 @@ import {Coord} from './Coord';
 
 export class Grid {
     private _cells!: boolean[][];
+    private _previous: null | Grid = null;
 
     public constructor(private sizeX: number,
                        private sizeY: number,
@@ -28,6 +29,14 @@ export class Grid {
 
     private set cells(cells: boolean[][]) {
         this._cells = structuredClone(cells);
+    }
+
+    public get previous(): Grid | null {
+        return this._previous;
+    }
+
+    private set previous(value: Grid | null) {
+        this._previous = value;
     }
 
     public reset(negate = false): Grid {
@@ -103,6 +112,8 @@ export class Grid {
     private clone(): Grid {
         const grid = new Grid(this.sizeX, this.sizeY, this.isToroid);
         grid.cells = this.cells;
+        grid.previous = this;
+
         return grid;
     }
 

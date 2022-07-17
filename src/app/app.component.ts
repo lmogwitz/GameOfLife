@@ -127,6 +127,13 @@ export class AppComponent implements OnInit {
             && y <= max.y;
     }
 
+    public async handleClickPrevious(): Promise<void> {
+        if (!this._grid.previous) {
+            return;
+        }
+
+        this.updateUiGrid(this._grid.previous);
+    }
 
     private resetMultiSelect(): void {
         this.isShiftDown = false;
