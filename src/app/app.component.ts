@@ -70,7 +70,7 @@ export class AppComponent implements OnInit {
             );
         });
 
-        interval(500).pipe(
+        interval(250).pipe(
             filter(() => this.isAutoRunActive),
             switchMap(() => {
                 return from(this.handleClickSetNextState());
