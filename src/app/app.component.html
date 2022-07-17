@@ -1,4 +1,25 @@
-<header>
+<header *ngIf="fg as fg">
+    <div class="grid-setup"
+         [formGroup]="fg">
+        <mat-form-field appearance="fill">
+            <mat-label>Cols</mat-label>
+            <input type="number"
+                   matInput
+                   [min]="minCols"
+                   [max]="maxCols"
+                   [formControl]="fg.controls.x">
+            <span matPrefix>[{{minCols}}, {{maxCols}}]</span>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Rows</mat-label>
+            <input type="number"
+                   matInput
+                   [min]="minRows"
+                   [max]="maxRows"
+                   [formControl]="fg.controls.y">
+            <span matPrefix>[{{minRows}}, {{maxRows}}]</span>
+        </mat-form-field>
+    </div>
 </header>
 
 <div *ngIf="grid"
