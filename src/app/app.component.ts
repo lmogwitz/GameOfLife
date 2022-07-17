@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
     public isShiftDown = false;
     public currentCell: null | Coord = null;
 
-    private _grid = new Grid(defaultX, defaultY);
+    private _grid = new Grid(defaultX, defaultY, true);
     private _fg = new FormGroup({
         x: new FormControl<number>(defaultX, [Validators.min(this.minCols), Validators.max(this.maxCols)]),
         y: new FormControl<number>(defaultY, [Validators.min(this.minRows), Validators.max(this.maxRows)]),

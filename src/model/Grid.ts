@@ -5,7 +5,8 @@ export class Grid {
     private _cells!: boolean[][];
 
     public constructor(private sizeX: number,
-                       private sizeY: number) {
+                       private sizeY: number,
+                       private isToroid: boolean) {
         this._cells = new Array(this.sizeY).fill(null).map((_) => {
             return Grid.createRow(this.sizeX);
         });
@@ -96,7 +97,7 @@ export class Grid {
     }
 
     private clone(): Grid {
-        const grid = new Grid(this.sizeX, this.sizeY);
+        const grid = new Grid(this.sizeX, this.sizeY, this.isToroid);
         grid.cells = this.cells;
         return grid;
     }
@@ -172,6 +173,20 @@ export class Grid {
     }
 
     private getElementValue(x: number, y: number): boolean {
+        if (this.isToroid) {
+            if (x === -1) {
+                x = this.sizeX - 1;
+            } else if (x === this.sizeX) {
+                x = 0;
+            }
+            if (y === -1) {
+                y = this.sizeY - 1;
+            } else if (y === this.sizeY) {
+                y = 0;
+            }
+
+        }
+
         const row = this._cells[y];
 
         return row
