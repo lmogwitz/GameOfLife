@@ -22,6 +22,18 @@
     </div>
     <div class="action">
         <button mat-flat-button
+                color="accent"
+                (click)="handleClickNegate()">
+            Negate
+        </button>
+
+        <button mat-flat-button
+                color="warn"
+                (click)="handleClickReset()">
+            Reset
+        </button>
+
+        <button mat-flat-button
                 color="primary"
                 (click)="handleClickSetNextState()"
                 [disabled]="fg.invalid">

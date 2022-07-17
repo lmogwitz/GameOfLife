@@ -43,4 +43,12 @@ export class AppComponent implements OnInit {
     public async handleClickSetNextState(): Promise<void> {
         this.grid.setNext();
     }
+
+    public async handleClickReset(): Promise<void> {
+        this.grid.reset();
+    }
+
+    public async handleClickNegate(): Promise<void> {
+        this.grid.reset(true);
+    }
 }

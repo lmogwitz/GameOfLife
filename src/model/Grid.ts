@@ -1,11 +1,11 @@
 type Coord = { x: number, y: number; };
 
 export class Grid {
-    private readonly _cells: boolean[][];
+    private _cells!: boolean[][];
 
     public constructor(public sizeX: number,
                        public sizeY: number) {
-        this._cells = new Array(sizeY).fill(null).map((_) => {
+        this._cells = new Array(this.sizeY).fill(null).map((_) => {
             return Grid.createRow(this.sizeX);
         });
     }
@@ -18,6 +18,18 @@ export class Grid {
 
     public get cells(): boolean[][] {
         return this._cells;
+    }
+
+    public reset(negate = false): void {
+        this._cells.forEach((row, y) => {
+            row.forEach((celLState, x) => {
+                if (negate) {
+                    this._cells[y][x] = !celLState;
+                } else {
+                    this._cells[y][x] = false;
+                }
+            });
+        });
     }
 
     public toggleCell(x: number, y: number): void {
