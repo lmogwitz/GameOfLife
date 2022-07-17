@@ -3,8 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {BehaviorSubject, filter, from, interval, startWith, switchMap} from 'rxjs';
 import {Grid} from '../model/Grid';
 
-const defaultX = 16;
-const defaultY = 10;
+const defaultX = 64;
+const defaultY = 40;
 
 @Component({
     selector: 'gol-root',
