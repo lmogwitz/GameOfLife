@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {BehaviorSubject, filter, from, interval, startWith, switchMap} from 'rxjs';
+import {BehaviorSubject, debounceTime, filter, from, interval, startWith, switchMap} from 'rxjs';
 import {Grid} from '../model/Grid';
 
 const defaultX = 64;
@@ -35,7 +35,8 @@ export class AppComponent implements OnInit {
     public ngOnInit(): void {
         this._fg.valueChanges.pipe(
             startWith(this._fg.value),
-            filter(() => this.fg.valid)
+            filter(() => this.fg.valid),
+            debounceTime(100)
         ).subscribe((formValue) => {
             this.updateUiGrid(
                 this.grid.setDimensions(formValue.x ?? defaultX, formValue.y ?? defaultY)
