@@ -101,6 +101,14 @@ footer {
 
             &.alive {
                 background: rgba(91, 169, 64, 0.73);
+
+                &.in-multi-select {
+                    background: orange;
+                }
+            }
+
+            &.in-multi-select {
+                background: dodgerblue;
             }
         }
     }
@@ -110,6 +118,10 @@ footer {
             &:hover {
                 cursor: pointer;
                 background: rgba(91, 169, 64, 0.73);
+
+                &.in-multi-select {
+                    background: dodgerblue;
+                }
             }
 
             &.alive {

@@ -53,7 +53,8 @@
         <div *ngFor="let cellState of collCol; let x=index;"
              class="col cell"
              (click)="handleClickToggleCell(grid, x, y)"
-             [ngClass]="{'alive': cellState}">
+             (mouseenter)="currentCell = {x, y}"
+             [ngClass]="{'alive': cellState, 'in-multi-select': isInMultiSelect(x, y)}">
         </div>
     </div>
 </div>

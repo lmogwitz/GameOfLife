@@ -1,4 +1,5 @@
-type Coord = { x: number, y: number; };
+import {BoundingBox} from './BoundingBox';
+import {Coord} from './Coord';
 
 export class Grid {
     private _cells!: boolean[][];
@@ -44,6 +45,18 @@ export class Grid {
         this._cells[y][x] = !this._cells[y][x];
 
         return this;
+    }
+
+    public toggleCells(boundingBox: BoundingBox): Grid {
+        const grid = this.clone();
+
+        for (let y = boundingBox.min.y; y <= boundingBox.max.y; y++) {
+            for (let x = boundingBox.min.x; x <= boundingBox.max.x; x++) {
+                this._cells[y][x] = !this._cells[y][x];
+            }
+        }
+
+        return grid;
     }
 
     public setDimensions(x: number, y: number): Grid {
