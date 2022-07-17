@@ -5,8 +5,8 @@ import {Coord} from '../model/Coord';
 import {Grid} from '../model/Grid';
 import {Util} from '../model/Util';
 
-const defaultX = 64;
-const defaultY = 40;
+const defaultX = 48;
+const defaultY = 30;
 
 @Component({
     selector: 'gol-root',
