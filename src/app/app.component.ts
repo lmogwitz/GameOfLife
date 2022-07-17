@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {filter, startWith} from 'rxjs';
+import {BehaviorSubject, filter, startWith} from 'rxjs';
 import {Grid} from '../model/Grid';
 
 const defaultX = 16;
@@ -9,16 +9,16 @@ const defaultY = 10;
 @Component({
     selector: 'gol-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    styleUrls: ['./app.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-    public grid = new Grid(defaultX, defaultY);
-
+    public grid$ = new BehaviorSubject<null | Grid>(null);
     public minCols = 3;
     public minRows = 3;
     public maxCols = 100;
     public maxRows = 100;
-
+    private grid = new Grid(defaultX, defaultY);
     private _fg = new FormGroup({
         x: new FormControl<number>(defaultX, [Validators.min(this.minCols), Validators.max(this.maxCols)]),
         y: new FormControl<number>(defaultY, [Validators.min(this.minRows), Validators.max(this.maxRows)]),
@@ -36,19 +36,32 @@ export class AppComponent implements OnInit {
             startWith(this._fg.value),
             filter(() => this.fg.valid)
         ).subscribe((formValue) => {
-            this.grid.setDimensions(formValue.x ?? defaultX, formValue.y ?? defaultY);
+            this.updateUiGrid(
+                this.grid.setDimensions(formValue.x ?? defaultX, formValue.y ?? defaultY)
+            );
         });
     }
 
     public async handleClickSetNextState(): Promise<void> {
-        this.grid.setNext();
+        this.updateUiGrid(
+            this.grid.setNext()
+        );
     }
 
     public async handleClickReset(): Promise<void> {
-        this.grid.reset();
+        this.updateUiGrid(
+            this.grid.reset()
+        );
     }
 
     public async handleClickNegate(): Promise<void> {
-        this.grid.reset(true);
+        this.updateUiGrid(
+            this.grid.reset(true)
+        );
+    }
+
+    private updateUiGrid(grid: Grid): void {
+        this.grid = grid;
+        this.grid$.next(grid);
     }
 }

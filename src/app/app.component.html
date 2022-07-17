@@ -42,7 +42,7 @@
     </div>
 </header>
 
-<div *ngIf="grid"
+<div *ngIf="grid$ | async as grid"
      class="grid">
     <div *ngFor="let collCol of grid.cells; let y=index;"
          class="row">
@@ -54,5 +54,5 @@
     </div>
 </div>
 
-<footer>
+<footer>x
 </footer>

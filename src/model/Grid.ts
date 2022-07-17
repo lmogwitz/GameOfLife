@@ -20,45 +20,68 @@ export class Grid {
         return this._cells;
     }
 
-    public reset(negate = false): void {
-        this._cells.forEach((row, y) => {
+    public set cells(cells: boolean[][]) {
+        this._cells = structuredClone(cells);
+    }
+
+    public reset(negate = false): Grid {
+        const grid = this.clone();
+
+        grid.cells.forEach((row, y) => {
             row.forEach((celLState, x) => {
                 if (negate) {
-                    this._cells[y][x] = !celLState;
+                    grid.cells[y][x] = !celLState;
                 } else {
-                    this._cells[y][x] = false;
+                    grid.cells[y][x] = false;
                 }
             });
         });
+
+        return grid;
     }
 
-    public toggleCell(x: number, y: number): void {
+    public toggleCell(x: number, y: number): Grid {
         this._cells[y][x] = !this._cells[y][x];
+
+        return this;
     }
 
-    public setDimensions(x: number, y: number): void {
+    public setDimensions(x: number, y: number): Grid {
         if (x === this.sizeX && y === this.sizeY) {
-            return;
+            return this;
         }
+        const grid = this.clone();
 
-        this.setYDimension(y);
-        this.setXDimension(x);
+        grid.setYDimension(y);
+        grid.setXDimension(x);
+
+        return grid;
     }
 
-    public setNext(): void {
+    public setNext(): Grid {
+        const grid = this.clone();
+
         const changesNeeded: Coord[] = [];
 
-        this._cells.forEach((row, y) => {
+        grid.cells.forEach((row, y) => {
             row.forEach((_, x) => {
-                if (this.isChangeNeeded(x, y)) {
+                if (grid.isChangeNeeded(x, y)) {
                     changesNeeded.push({x, y});
                 }
             });
         });
 
         changesNeeded.forEach(coord => {
-            this._cells[coord.y][coord.x] = !this._cells[coord.y][coord.x];
+            grid.cells[coord.y][coord.x] = !grid.cells[coord.y][coord.x];
         });
+
+        return grid;
+    }
+
+    private clone(): Grid {
+        const grid = new Grid(this.sizeX, this.sizeY);
+        grid.cells = this.cells;
+        return grid;
     }
 
     private setXDimension(x: number): void {
