@@ -1,71 +1,76 @@
-<header *ngIf="fg as fg"
-        class="mat-elevation-z3">
-    <div class="grid-setup"
-         [formGroup]="fg">
-        <mat-form-field appearance="fill">
-            <mat-label>Cols</mat-label>
-            <input type="number"
-                   matInput
-                   [min]="minCols"
-                   [max]="maxCols"
-                   [formControl]="fg.controls.x">
-            <span matPrefix>
+<ng-container *ngIf="grid$ | async as grid">
+    <header *ngIf="fg as fg"
+            class="mat-elevation-z3">
+        <div class="grid-setup"
+             [formGroup]="fg">
+            <mat-form-field appearance="fill">
+                <mat-label>Cols</mat-label>
+                <input type="number"
+                       matInput
+                       [min]="minCols"
+                       [max]="maxCols"
+                       [formControl]="fg.controls.x">
+                <span matPrefix>
                 {{minCols}} &leq; x &leq; {{maxCols}}
             </span>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>Rows</mat-label>
-            <input type="number"
-                   matInput
-                   [min]="minRows"
-                   [max]="maxRows"
-                   [formControl]="fg.controls.y">
-            <span matPrefix>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Rows</mat-label>
+                <input type="number"
+                       matInput
+                       [min]="minRows"
+                       [max]="maxRows"
+                       [formControl]="fg.controls.y">
+                <span matPrefix>
                 {{minRows}} &leq; y &leq; {{maxRows}}</span>
-        </mat-form-field>
-    </div>
-    <div class="action">
-        <button mat-flat-button
-                color="accent"
-                (click)="handleClickNegate()"
-                [disabled]="isAutoRunActive">
-            Negate
-        </button>
+            </mat-form-field>
+        </div>
+        <div class="action">
+            <button mat-flat-button
+                    color="accent"
+                    (click)="handleClickNegate()"
+                    [disabled]="isAutoRunActive">
+                Negate
+            </button>
 
-        <button mat-flat-button
-                color="warn"
-                (click)="handleClickReset()"
-                [disabled]="isAutoRunActive">
-            Reset
-        </button>
+            <button mat-flat-button
+                    color="warn"
+                    (click)="handleClickReset()"
+                    [disabled]="isAutoRunActive">
+                Reset
+            </button>
 
-        <button mat-flat-button
-                color="primary"
-                (click)="handleClickSetNextState()"
-                [disabled]="isAutoRunActive || fg.invalid">
-            Next
-        </button>
-    </div>
-</header>
+            <button mat-flat-button
+                    color="primary"
+                    (click)="handleClickSetNextState()"
+                    [disabled]="isAutoRunActive || fg.invalid">
+                Next
+            </button>
+        </div>
+    </header>
 
-<div *ngIf="grid$ | async as grid"
-     class="grid"
-     [ngClass]="{'autorun': isAutoRunActive}">
-    <div *ngFor="let collCol of grid.cells; let y=index;"
-         class="row">
-        <div *ngFor="let cellState of collCol; let x=index;"
-             class="col cell"
-             (click)="handleClickToggleCell(grid, x, y)"
-             (mouseenter)="currentCell = {x, y}"
-             [ngClass]="{'alive': cellState, 'in-multi-select': isInMultiSelect(x, y)}">
+    <div class="grid"
+         [ngClass]="{'autorun': isAutoRunActive}">
+        <div *ngFor="let collCol of grid.cells; let y=index;"
+             class="row">
+            <div *ngFor="let cellState of collCol; let x=index;"
+                 class="col cell"
+                 (click)="handleClickToggleCell(grid, x, y)"
+                 (mouseenter)="currentCell = {x, y}"
+                 [ngClass]="{'alive': cellState, 'in-multi-select': isInMultiSelect(x, y)}">
+            </div>
         </div>
     </div>
-</div>
 
-<footer class="mat-elevation-z3">
-    <div class="auto-run">
-        <mat-checkbox color="primary"
-                      [(ngModel)]="isAutoRunActive">Auto Run
-        </mat-checkbox>
-    </div>
-</footer>
+    <footer class="mat-elevation-z3">
+        <div class="area auto-run">
+            <mat-checkbox color="primary"
+                          [(ngModel)]="isAutoRunActive">
+                Auto Run
+            </mat-checkbox>
+        </div>
+        <div class="area cell-count">
+            Active Cells: {{grid.activeCellCount}}
+        </div>
+    </footer>
+</ng-container>

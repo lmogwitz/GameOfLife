@@ -18,6 +18,10 @@ export class Grid {
         });
     }
 
+    public get activeCellCount(): number {
+        return this._cells.flat().filter(x => x).length;
+    }
+
     public get cells(): boolean[][] {
         return this._cells;
     }
