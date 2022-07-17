@@ -61,6 +61,10 @@ export class Grid {
     public setNext(): Grid {
         const grid = this.clone();
 
+        if (grid.cells.flat().every(x => !x)) {
+            return grid;
+        }
+
         const changesNeeded: Coord[] = [];
 
         grid.cells.forEach((row, y) => {
